@@ -1,0 +1,22 @@
+class Empleado:
+    def __init__(self, horas, valor, porcentaje):
+        self.horas = horas
+        self.valor = valor
+        self.porcentaje = porcentaje
+        self.bruto = 0
+        self.retencion = 0
+        self.neto = 0
+
+    def calcular(self):
+        self.bruto = self.horas * self.valor
+        self.retencion = self.bruto * (self.porcentaje / 100)
+        self.neto = self.bruto - self.retencion
+
+    def mostrar(self):
+        print("Salario Bruto:", self.bruto)
+        print("Retencion:", self.retencion)
+        print("Salario Neto:", self.neto)
+
+obj = Empleado(48, 5000, 12.5)
+obj.calcular()
+obj.mostrar()
