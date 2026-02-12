@@ -1,0 +1,22 @@
+class Familia:
+    def __init__(self, juan):
+        self.juan = juan
+        self.alberto = 0
+        self.ana = 0
+        self.mama = 0
+
+    def calcular(self):
+        self.alberto = 2 * self.juan / 3
+        self.ana = 4 * self.juan / 3
+        self.mama = self.juan + self.alberto + self.ana
+
+    def mostrar(self):
+        print("Alberto:", self.alberto)
+        print("Juan:", self.juan)
+        print("Ana:", self.ana)
+        print("Mama:", self.mama)
+
+edad = float(input("Edad Juan: "))
+obj = Familia(edad)
+obj.calcular()
+obj.mostrar()
