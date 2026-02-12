@@ -1,0 +1,18 @@
+class Numero:
+    def __init__(self, valor):
+        self.valor = valor
+        self.cuadrado = 0
+        self.cubo = 0
+
+    def calcular(self):
+        self.cuadrado = self.valor ** 2
+        self.cubo = self.valor ** 3
+
+    def mostrar(self):
+        print("El cuadrado es:", self.cuadrado)
+        print("El cubo es:", self.cubo)
+
+dato = float(input("Ingrese un numero: "))
+obj = Numero(dato)
+obj.calcular()
+obj.mostrar()
