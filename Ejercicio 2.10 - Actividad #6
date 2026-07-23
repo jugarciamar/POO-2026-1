@@ -1,0 +1,82 @@
+class Pedido:
+
+    def calcularPedido(self, *args):
+
+        if len(args) == 4:
+            primerPlato, costoPrimerPlato, bebida, costoBebida = args
+            total = costoPrimerPlato + costoBebida
+            print(f"El costo de {primerPlato} y {bebida} es = ${total}")
+
+        elif len(args) == 6:
+            primerPlato, costoPrimerPlato, segundoPlato, costoSegundoPlato, bebida, costoBebida = args
+            total = costoPrimerPlato + costoSegundoPlato + costoBebida
+            print(f"El costo de {primerPlato} + {segundoPlato} + {bebida} es = ${total}")
+
+        elif len(args) == 8:
+            primerPlato, costoPrimerPlato, segundoPlato, costoSegundoPlato, postre, costoPostre, bebida, costoBebida = args
+            total = costoPrimerPlato + costoSegundoPlato + costoPostre + costoBebida
+            print(f"El costo de {primerPlato} + {segundoPlato} + {bebida} + {postre} es = ${total}")
+
+        else:
+            print("Cantidad de parámetros no válida.")
+
+
+class Suma:
+
+    def sumar(self, *args):
+
+        if len(args) == 2:
+            if all(isinstance(x, int) for x in args):
+                return args[0] + args[1]
+            elif all(isinstance(x, (int, float)) for x in args):
+                return float(args[0]) + float(args[1])
+
+        elif len(args) == 3:
+            if all(isinstance(x, int) for x in args):
+                return args[0] + args[1] + args[2]
+            elif all(isinstance(x, (int, float)) for x in args):
+                return float(args[0]) + float(args[1]) + float(args[2])
+
+        raise TypeError("Parámetros no válidos.")
+
+
+def main():
+
+    print("===== PEDIDOS =====")
+    pedido1 = Pedido()
+    pedido1.calcularPedido("Sancocho", 5000, "Gaseosa", 2000)
+
+    pedido2 = Pedido()
+    pedido2.calcularPedido(
+        "Crema de verduras", 5000,
+        "Churrasco", 6000,
+        "Gaseosa", 2000
+    )
+
+    pedido3 = Pedido()
+    pedido3.calcularPedido(
+        "Crema de espinacas", 5000,
+        "Salmón", 10000,
+        "Tiramisú", 5000,
+        "Gaseosa", 2000
+    )
+
+    print("\n===== EJERCICIO PROPUESTO: CLASE SUMA =====")
+
+    suma = Suma()
+
+    print("Suma de dos enteros:")
+    print("10 + 20 =", suma.sumar(10, 20))
+
+    print("\nSuma de tres enteros:")
+    print("10 + 20 + 30 =", suma.sumar(10, 20, 30))
+
+    print("\nSuma de dos double:")
+    print("5.5 + 2.3 =", suma.sumar(5.5, 2.3))
+
+    print("\nSuma de tres double:")
+    print("1.2 + 3.4 + 5.6 =", suma.sumar(1.2, 3.4, 5.6))
+
+
+if __name__ == "__main__":
+    main()
