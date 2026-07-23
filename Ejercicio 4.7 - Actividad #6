@@ -1,0 +1,202 @@
+from abc import ABC, abstractmethod
+from math import gcd
+
+
+class Animal(ABC):
+
+    def __init__(self, sonido, alimentos, habitat, nombre_cientifico):
+        self.sonido = sonido
+        self.alimentos = alimentos
+        self.habitat = habitat
+        self.nombre_cientifico = nombre_cientifico
+
+    @abstractmethod
+    def get_nombre_cientifico(self):
+        pass
+
+    @abstractmethod
+    def get_sonido(self):
+        pass
+
+    @abstractmethod
+    def get_alimentos(self):
+        pass
+
+    @abstractmethod
+    def get_habitat(self):
+        pass
+
+
+class Canido(Animal):
+    pass
+
+
+class Felino(Animal):
+    pass
+
+
+class Perro(Canido):
+    def __init__(self):
+        super().__init__("Ladrido", "Carnívoro", "Doméstico",
+                          "Canis lupus familiaris")
+
+    def get_sonido(self):
+        return self.sonido
+
+    def get_alimentos(self):
+        return self.alimentos
+
+    def get_habitat(self):
+        return self.habitat
+
+    def get_nombre_cientifico(self):
+        return self.nombre_cientifico
+
+
+class Lobo(Canido):
+    def __init__(self):
+        super().__init__("Aullido", "Carnívoro", "Bosque", "Canis lupus")
+
+    def get_sonido(self):
+        return self.sonido
+
+    def get_alimentos(self):
+        return self.alimentos
+
+    def get_habitat(self):
+        return self.habitat
+
+    def get_nombre_cientifico(self):
+        return self.nombre_cientifico
+
+
+class Leon(Felino):
+    def __init__(self):
+        super().__init__("Rugido", "Carnívoro", "Praderas", "Panthera leo")
+
+    def get_sonido(self):
+        return self.sonido
+
+    def get_alimentos(self):
+        return self.alimentos
+
+    def get_habitat(self):
+        return self.habitat
+
+    def get_nombre_cientifico(self):
+        return self.nombre_cientifico
+
+
+class Gato(Felino):
+    def __init__(self):
+        super().__init__("Maullido", "Ratones", "Doméstico",
+                          "Felis silvestris catus")
+
+    def get_sonido(self):
+        return self.sonido
+
+    def get_alimentos(self):
+        return self.alimentos
+
+    def get_habitat(self):
+        return self.habitat
+
+    def get_nombre_cientifico(self):
+        return self.nombre_cientifico
+
+
+class Numerica(ABC):
+
+    @abstractmethod
+    def to_string(self):
+        pass
+
+    @abstractmethod
+    def equals(self, numero):
+        pass
+
+    @abstractmethod
+    def sumar(self, numero):
+        pass
+
+    @abstractmethod
+    def restar(self, numero):
+        pass
+
+    @abstractmethod
+    def multiplicar(self, numero):
+        pass
+
+    @abstractmethod
+    def dividir(self, numero):
+        pass
+
+
+class Fraccion(Numerica):
+
+    def __init__(self, numerador, denominador):
+        self.numerador = numerador
+        self.denominador = denominador
+
+    def simplificar(self):
+        divisor = gcd(self.numerador, self.denominador)
+        return Fraccion(self.numerador // divisor, self.denominador // divisor)
+
+    def to_string(self):
+        return f"{self.numerador}/{self.denominador}"
+
+    def equals(self, numero):
+        propia = self.simplificar()
+        otra = numero.simplificar()
+        return (propia.numerador == otra.numerador and
+                propia.denominador == otra.denominador)
+
+    def sumar(self, numero):
+        nuevo_numerador = (self.numerador * numero.denominador +
+                           numero.numerador * self.denominador)
+        nuevo_denominador = self.denominador * numero.denominador
+        return Fraccion(nuevo_numerador, nuevo_denominador).simplificar()
+
+    def restar(self, numero):
+        nuevo_numerador = (self.numerador * numero.denominador -
+                           numero.numerador * self.denominador)
+        nuevo_denominador = self.denominador * numero.denominador
+        return Fraccion(nuevo_numerador, nuevo_denominador).simplificar()
+
+    def multiplicar(self, numero):
+        nuevo_numerador = self.numerador * numero.numerador
+        nuevo_denominador = self.denominador * numero.denominador
+        return Fraccion(nuevo_numerador, nuevo_denominador).simplificar()
+
+    def dividir(self, numero):
+        nuevo_numerador = self.numerador * numero.denominador
+        nuevo_denominador = self.denominador * numero.numerador
+        return Fraccion(nuevo_numerador, nuevo_denominador).simplificar()
+
+
+def main():
+    animales = [Gato(), Perro(), Lobo(), Leon()]
+
+    for animal in animales:
+        print(animal.get_nombre_cientifico())
+        print("Sonido:", animal.get_sonido())
+        print("Alimentos:", animal.get_alimentos())
+        print("Hábitat:", animal.get_habitat())
+        print()
+
+    fraccion1 = Fraccion(1, 2)
+    fraccion2 = Fraccion(1, 3)
+
+    print(fraccion1.to_string(), "+", fraccion2.to_string(), "=",
+          fraccion1.sumar(fraccion2).to_string())
+    print(fraccion1.to_string(), "-", fraccion2.to_string(), "=",
+          fraccion1.restar(fraccion2).to_string())
+    print(fraccion1.to_string(), "*", fraccion2.to_string(), "=",
+          fraccion1.multiplicar(fraccion2).to_string())
+    print(fraccion1.to_string(), "/", fraccion2.to_string(), "=",
+          fraccion1.dividir(fraccion2).to_string())
+    print(fraccion1.equals(Fraccion(2, 4)))
+
+
+if __name__ == "__main__":
+    main()
