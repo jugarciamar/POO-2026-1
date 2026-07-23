@@ -1,0 +1,79 @@
+class ArticuloCientifico:
+
+    def __init__(self, nombre, autor, palabras_clave=None,
+                 nombre_publicacion=None, anio=None, resumen=None):
+        self.nombre = nombre
+        self.autor = autor
+        self.palabras_clave = palabras_clave
+        self.nombre_publicacion = nombre_publicacion
+        self.anio = anio
+        self.resumen = resumen
+
+    @classmethod
+    def con_titulo_y_autor(cls, nombre, autor):
+        return cls(nombre, autor)
+
+    @classmethod
+    def con_datos_basicos(cls, nombre, autor, palabras_clave,
+                           nombre_publicacion, anio):
+        articulo = cls.con_titulo_y_autor(nombre, autor)
+        articulo.palabras_clave = palabras_clave
+        articulo.nombre_publicacion = nombre_publicacion
+        articulo.anio = anio
+        return articulo
+
+    @classmethod
+    def completo(cls, nombre, autor, palabras_clave, nombre_publicacion,
+                 anio, resumen):
+        articulo = cls.con_datos_basicos(nombre, autor, palabras_clave,
+                                          nombre_publicacion, anio)
+        articulo.resumen = resumen
+        return articulo
+
+    def imprimir(self):
+        print("Nombre:", self.nombre)
+        print("Autor:", self.autor)
+        print("Palabras clave:", self.palabras_clave)
+        print("Publicación:", self.nombre_publicacion)
+        print("Año:", self.anio)
+        print("Resumen:", self.resumen)
+
+
+class Empleado:
+
+    def __init__(self, identificador=100, nombre="Nuevo empleado",
+                 apellidos="Nuevo empleado", edad=18):
+        self.identificador = identificador
+        self.nombre = nombre
+        self.apellidos = apellidos
+        self.edad = edad
+
+    def imprimir(self):
+        print("Identificador:", self.identificador)
+        print("Nombre:", self.nombre)
+        print("Apellidos:", self.apellidos)
+        print("Edad:", self.edad)
+
+
+def main():
+    articulo = ArticuloCientifico.completo(
+        "Simulación de eventos discretos en sistemas universitarios",
+        "Juan Pérez",
+        "simulación, Simul8, restaurante universitario",
+        "Revista de Ingeniería Industrial",
+        2026,
+        "Este artículo presenta un modelo de simulación de eventos "
+        "discretos aplicado a un restaurante universitario, con el "
+        "fin de proponer mejoras en el servicio."
+    )
+    articulo.imprimir()
+
+    empleado1 = Empleado()
+    empleado1.imprimir()
+
+    empleado2 = Empleado(101, "Carlos", "Pérez Gómez", 30)
+    empleado2.imprimir()
+
+
+if __name__ == "__main__":
+    main()
